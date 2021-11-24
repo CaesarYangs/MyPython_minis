@@ -8,8 +8,18 @@ import os
 from connectToNotionDB import postData
 from lxml import etree
 from lxml import html
+import pandas as pd
+import csv
 from html.parser import HTMLParser
 
+head = ('PaperName','Author','FromSchool','Time','Url')
+csvfile = 'test4.csv'
+
+path = csvfile
+with open(path, 'a+') as f:
+    csv_write = csv.writer(f)
+    csv_write.writerow(head)
+    f.close()
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')
 record = 'CNKI'
@@ -73,12 +83,17 @@ def get_paper_url(pages, post_form):
                 # 放在数组里面，然后每页存进txt文档一下
                 author = (tree.xpath('//div[@class="lplist"]/div[' + str(num) + ']/p[3]/span[1]/@title')[0])
                 describition = (tree.xpath('//div[@class="lplist"]/div[' + str(num) + ']/p[2]//text()')[0])
-                dt = {'PaperName': title, 'PaperUrl': url, 'Author': author,'Describition':describition}  # 字典
+                school = (tree.xpath('//div[@class="lplist"]/div[' + str(num) + ']/p[3]/span[3]/@title')[0])
+                time = (tree.xpath('//div[@class="lplist"]/div[' + str(num) + ']/p[3]/span[4]/text()')[0])
+                datalist = [title,author,school,time,url]
+                # dt = {'PaperName': title, 'PaperUrl': url, 'Author': author,'Describition':describition,'Time':time,'School':school}  # 字典
                 # sql_conn.store_to_sql(dt, conn, cursor)  # 每条写入一次
-                postData(title,author,url,describition)
-                #print(title," ",url," ",author)
-
-
+                postData(title, author, url, describition, school, time)
+                path = csvfile
+                with open(path, 'a+') as f:
+                    csv_write = csv.writer(f)
+                    data_row = datalist
+                    csv_write.writerow(data_row)
             except:
                 continue
 

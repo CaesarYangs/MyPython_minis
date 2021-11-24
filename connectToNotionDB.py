@@ -11,7 +11,7 @@ def getDatabase(token = token,dabaseID = databaseID):
     with open('./db.json','w',encoding='utf8') as f:
         json.dump(data,f,ensure_ascii=False)
 
-def postData(title,author,url,des,token=token,databaseID = databaseID,headers=headers):
+def postData(title,author,url,des,school,time,token=token,databaseID = databaseID,headers=headers):
     requests.request("POST",
     "https://api.notion.com/v1/pages",
     json={
@@ -21,8 +21,8 @@ def postData(title,author,url,des,token=token,databaseID = databaseID,headers=he
             "Title": {"title": [{"type": "text", "text": {"content": title}}]},
             "Describition": {"rich_text": [{"type": "text", "text": {"content": des}}]},
             "Author": {"rich_text": [{"type": "text", "text": {"content": author}}]},
-
-            #"url": {"rich_text": [{"type": "url", "url": {"content": url}}]},
+            "School": {"rich_text": [{"type": "text", "text": {"content": school}}]},
+            "Time": {"rich_text": [{"type": "text", "text": {"content": time}}]},
         },
         "children": [
             {
@@ -39,5 +39,5 @@ def postData(title,author,url,des,token=token,databaseID = databaseID,headers=he
 
 #getDatabase()
 
-
-postData("testxt","safdsfdsaf","https://www.url.com","111111111111111")
+#
+# postData("testfadsfdsafdsfasdfsdfsdfxt","safdsfdsaf233233","school","time","https://www.url.com","11dfdfdfdfd1111111111111")
