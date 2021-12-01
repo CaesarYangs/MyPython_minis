@@ -1,7 +1,7 @@
 from os import times
 import requests,json
 token = 'secret_t47Ax0NiCcbGVmhHMdF5p2gxtjFEkKAtQtBsAI8hwlh'
-databaseID = '968d78a76a24476c9d7d0de83a1d38df'
+databaseID = 'f36fc191cbb04f6f86df41eb30a21249'
 headers={"Authorization": "Bearer " + token, "Notion-Version": "2021-05-13"}
 
 def getDatabase(token = token,dabaseID = databaseID):
@@ -40,4 +40,4 @@ def postData(title,author,url,des,school,time,token=token,databaseID = databaseI
 #getDatabase()
 
 #
-# postData("testfadsfdsafdsfasdfsdfsdfxt","safdsfdsaf233233","school","time","https://www.url.com","11dfdfdfdfd1111111111111")
+postData("te43ereqwrw34354534545dfxt","author","https://www.url.com","11dfdfdfdfd1111111111111","school234","time:2021")
