@@ -12,14 +12,14 @@ import pandas as pd
 import csv
 from html.parser import HTMLParser
 
-# head = ('PaperName','Author','FromSchool','Time','Url')
-# csvfile = 'cnki2.csv'
-#
-# path = csvfile
-# with open(path, 'a+') as f:
-#     csv_write = csv.writer(f)
-#     csv_write.writerow(head)
-#     f.close()
+head = ('PaperName','Author','FromSchool','Time','Url')
+csvfile = 'cnki9.csv'
+
+path = csvfile
+with open(path, 'a+') as f:
+    csv_write = csv.writer(f)
+    csv_write.writerow(head)
+    f.close()
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')
 record = 'CNKI'
@@ -89,11 +89,11 @@ def get_paper_url(pages, post_form):
                 # dt = {'PaperName': title, 'PaperUrl': url, 'Author': author,'Describition':describition,'Time':time,'School':school}  # 字典
                 # sql_conn.store_to_sql(dt, conn, cursor)  # 每条写入一次
                 postData(title, author, url, describition, school, time)
-                # path = csvfile
-                # with open(path, 'a+') as f:
-                #     csv_write = csv.writer(f)
-                #     data_row = datalist
-                #     csv_write.writerow(data_row)
+                path = csvfile
+                with open(path, 'a+') as f:
+                    csv_write = csv.writer(f)
+                    data_row = datalist
+                    csv_write.writerow(data_row)
             except:
                 continue
 
@@ -116,10 +116,10 @@ if __name__ == '__main__':
     index_url = 'http://search.cnki.com.cn/Search/ListResult'
     page = '1'
     form = {'searchType': 'MulityTermsSearch', 'ArticleType': ArticleType, 'ParamIsNullOrEmpty': 'true',
-            'Islegal': 'false', 'Summary': '大数据', 'Type': Type, 'Order': '1', 'Page': page}
+            'Islegal': 'false', 'Summary': '自动驾驶', 'Type': Type, 'Order': '1', 'Page': page}
     emp1 = POST(index_url, form)  # 创建第一个类对象，用于获得返回数据
     html1 = emp1.response()
     maxpage = get_pages(html1)  # 最大页数
-    maxpage = 5
+    maxpage = 50
     print('The total page is:', maxpage)
     get_paper_url(maxpage, form)  # 获取各检索结果文章链接
